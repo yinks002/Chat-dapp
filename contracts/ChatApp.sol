@@ -61,7 +61,7 @@ contract ChatApp{
             pubkey2= tmp;
         }
         for (uint256 i= 0; i < userList[pubkey1].friendList.length; i++){
-            if(userList[pubkey1].friendList[i].pubkey = pubkey2) return true;
+            if(userList[pubkey1].friendList[i].pubkey == pubkey2) return true;
         }
         return false;
     }
@@ -79,9 +79,28 @@ contract ChatApp{
 
     //get chat code
     function _getChatCode(address pubkey1, address pubkey2) internal pure returns(byte32){
-        
+        if(pubkey1 < pubkey2){
+            return keccak256(abi.encodePacked(pubkey1, pubkey2));
+
+        }else return keccak256(abi.encodePacked(pubkey2, pubkey1));
     }
 
+    //send message
+    function sendMessage(address friend_key, string calldata _msg) external {
+        require(checkUserExists(msg.sender), "create an accont first");
+        require(checkUserExists(friend_key), "user is not registered");
+        require(checkAlreadyFriends(msg.sender, friend_key), "you are not friends with the address");
+
+        bytes32 chatCode= _getChatCode(msg.sender, friend_key);
+        message memory newMsg=  message(msg.sender, block.timestamp, _msg);
+        allMessages[chatCode].push(newMsg);
+    }
+    //read message
+    function readMessage(address friend_key) external view returns(message[] memory){
+        bytes32 chatCode = _getChatCode(msg.sender, friend_key);
+        return allMessages[chatCode];
+
+    }
 
 
 }
