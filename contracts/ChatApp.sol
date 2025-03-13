@@ -84,7 +84,7 @@ contract ChatApp{
     }
 
     //get chat code
-    function _getChatCode(address pubkey1, address pubkey2) internal pure returns(byte32){
+    function _getChatCode(address pubkey1, address pubkey2) internal pure returns(bytes32){
         if(pubkey1 < pubkey2){
             return keccak256(abi.encodePacked(pubkey1, pubkey2));
 
