@@ -23,26 +23,30 @@ export const checkIfwalletConnected = async()=>{
 export const connectWallet = async()=>{
     try {
         if(!window.ethereum) return  alert("install metamask");
-        console.log("install metamask")
+        
 
     const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
     });
     const firstAccount = accounts[0];
+    console.log("first account", firstAccount)
     return firstAccount;
+
     } catch (error) {
-        
+        console.log(error)
     }
 }
 
-const fetchContract = (signerOrProvider) => new ethers.Contract(ChatAppABI, ChatAppAddress, signerOrProvider);
+const fetchContract = (signerOrProvider) => new ethers.Contract(ChatAppAddress, ChatAppABI, signerOrProvider);
 
 export const connectingWithContract = async()=>{
     try{
+        console.log("abi",ChatAppABI, ChatAppAddress)
         const web3modal = new Web3Modal();
         const connection = await web3modal.connect();
-        const provider = new ethers.BrowserProvider(connection);
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
+        console.log("signer", signer);
         const contract = fetchContract(signer);
         return contract;
     }catch(error){

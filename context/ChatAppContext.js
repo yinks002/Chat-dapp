@@ -23,6 +23,7 @@ const ChatAppProvider = ({children}) =>{
     const [currentUserName, setCurrentUserName] = useState("");
     const [currentUserAddress, setCurrentUserAddress] = useState("");
 
+    const [allUser, setAllUser] = useState([])
 
     const router = useRouter();
 
@@ -31,24 +32,31 @@ const ChatAppProvider = ({children}) =>{
         try{
             //call contract
             const contract =  await connectingWithContract();
-            console.log(contract)
+            console.log("contract",contract)
             //get account
             const connectAccount = await connectWallet();
             setAccount(connectAccount);
+            //all user
+            
+            const allAppUser = await contract.getAllAppUser();
+            setAllUser(allAppUser)
+            console.log("allusers", allUser)
             //get user name
             const userName = contract.getUsername(connectAccount);
-            console.log(userName)
+            console.log("username",userName)
             setUserName(userName);
             //get friend list
             const friendLists = await contract.getMyFriendList();
             console.log(friendLists)
-            setFriendLists(friendLists);
+            setFriendLists("friend list",friendLists);
+
 
             //get all app usr list
             const userList = await contract.getAllAppUser();
             console.log(userList)
             setUserLists(userList);
         }catch(error){
+            console.log(error)
             setError("please insralll and connect your wallet")
         }
     }
@@ -117,6 +125,7 @@ const ChatAppProvider = ({children}) =>{
         setCurrentUserName(userName)
     }
     useEffect(()=>{
+    
         // fetchData();
     },[])
 
@@ -130,6 +139,8 @@ const ChatAppProvider = ({children}) =>{
            readUser,
            account,
            userName,
+           connectWallet,
+           checkIfwalletConnected,
            friendLists,
            friendMsg,
            loading,

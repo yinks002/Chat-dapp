@@ -10,7 +10,7 @@ async function main() {
   await ChatApp.deployed();
 
   console.log(
-    `contract address:  ${ChatApp.address}`
+    `contract address:  ${"this is the contract address",ChatApp.address}`
   );
 }
 
