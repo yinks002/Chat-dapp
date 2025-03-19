@@ -60,6 +60,10 @@ const ChatAppProvider = ({children}) =>{
             setError("please insralll and connect your wallet")
         }
     }
+    const testError = ()=>{
+        setError("This is me testing the error component");
+        console.log("the conext error",error)
+    }
 
         //read message
         const readMessage = async(friendAddress)=>{
@@ -75,8 +79,8 @@ const ChatAppProvider = ({children}) =>{
     //create account
     const createAccount = async({name, accountAddress})=>{
         try{
-            if( name || accountAddress)
-                return setError("Name and account address cannot be empty");
+            // if( name || accountAddress)
+            //     return setError("Name and account address cannot be empty");
                 const contract = await connectingWithContract();
                 const getCreatedUser = await contract.createAccount(name);
                 setLoading(true);
@@ -125,8 +129,8 @@ const ChatAppProvider = ({children}) =>{
         setCurrentUserName(userName)
     }
     useEffect(()=>{
-    
-        // fetchData();
+     
+        fetchData();
     },[])
 
     return(

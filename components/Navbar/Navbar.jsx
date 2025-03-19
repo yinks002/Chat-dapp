@@ -8,7 +8,8 @@ import Style from "./Navbar.module.css";
 
 
 import { ChatAppContext } from '../../context/ChatAppContext';
-import { Model, Error } from '../index';
+import  Model  from '../Model/Model';
+import Error from '../Error/Error';
 
 
 const Navbar = () => {
@@ -125,10 +126,11 @@ const Navbar = () => {
                 </div>
             )}
 
-            {error == "" ? "" : <Error error = {error} />}
+            {error == "" ? "" : <Error error = {error} />}  
+            {console.log("this is the error", error)}
         </div>
     );
-}
+};
 
 export default Navbar;
 
