@@ -1,17 +1,18 @@
 "use client"
 
 import React, {useEffect, useState, useContext} from "react";
-import { ChatAppContext } from "../../context/ChatAppContext";
 
+import { Friend, Filter } from "../../components";
 
 
 
 
 const MyApp = ()=>{
-  const {} =  useContext(ChatAppContext);
+  
   return(
     <div>
-      <h1>hi</h1>
+      <Filter />
+      <Friend />
     </div>
 
   )
