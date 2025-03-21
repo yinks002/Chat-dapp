@@ -10,9 +10,9 @@
 
 }
 .UserCard_box_info{
-    line-height: .6;
+    line-height: 1.6;
 }
-.UserCard_box_info_button{
+.UserCard_box_info button{
     background-color: rgba(0, 0, 0, 0.25);
     color: #F18303;
     width: 50%;

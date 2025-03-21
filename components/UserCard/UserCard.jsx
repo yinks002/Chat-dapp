@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 
 //internal import
-import Style from "./UserCard.module.css";
+import Style from "./UserCard.module.css"
 import images from "../../assets";
 
-const UserCard = ({el, li, addFriends}) => {
+const UserCard = ({el, i, addFriends}) => {
     return (
         <div className={Style.UserCard}>
 
@@ -20,13 +20,13 @@ const UserCard = ({el, li, addFriends}) => {
 
                 <div className={Style.UserCard_box_info}>
                     <h3>{el.name}</h3>
-                    <p>{el.accountAddresss.slice(0,25)}...</p>
+                    <p>{el.accountAddress.slice(0,25)}...</p>
                     <button onClick={()=> addFriends({name: el.name, 
                         accountAddresss: el.accountAddresss})}
                         >Add Friend</button>
                 </div>
             </div>
-            <small className={Style.number}>{i+ 1}</small>
+            <small className={Style.number}>{i + 1}</small>
         </div>
     );
 }

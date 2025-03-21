@@ -36,15 +36,14 @@ const ChatAppProvider = ({children}) =>{
             //get account
             const connectAccount = await connectWallet();
             setAccount(connectAccount);
-            //all user
-            
+            //all user           
             const allAppUser = await contract.getAllAppUser();
             setAllUser(allAppUser)
             console.log("allusers", allUser)
             //get user name
-            const userName = contract.getUsername(connectAccount);
-            console.log("username",userName)
-            setUserName(userName);
+            // const userName = contract.getUsername(connectAccount);
+            // console.log("username",userName)
+            // setUserName(userName);
             //get friend list
             const friendLists = await contract.getMyFriendList();
             console.log(friendLists)
@@ -53,11 +52,11 @@ const ChatAppProvider = ({children}) =>{
 
             //get all app usr list
             const userList = await contract.getAllAppUser();
-            console.log(userList)
+            console.log("The user fucking lists",userList)
             setUserLists(userList);
         }catch(error){
             console.log(error)
-            setError("please insralll and connect your wallet")
+            console.log("please insralll and connect your wallet")
         }
     }
     const testError = ()=>{
@@ -72,7 +71,7 @@ const ChatAppProvider = ({children}) =>{
                 const read = await contract.readMessage(friendAddress);
                 setFriendMsg(read);
             }catch(error){
-                setError("you currently do not have any read messages, please check back later")
+                console.log("you currently do not have any read messages, please check back later")
 
             }
         }
@@ -129,7 +128,7 @@ const ChatAppProvider = ({children}) =>{
         setCurrentUserName(userName)
     }
     useEffect(()=>{
-     
+        console.log("rerun")
         fetchData();
     },[])
 
@@ -146,6 +145,8 @@ const ChatAppProvider = ({children}) =>{
            connectWallet,
            checkIfwalletConnected,
            friendLists,
+           currentUserName,
+           currentUserAddress,
            friendMsg,
            loading,
            userLists,

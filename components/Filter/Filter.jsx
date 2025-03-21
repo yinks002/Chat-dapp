@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useState, useContext} from 'react';
 import Image from 'next/image';
 //internal import
@@ -35,7 +37,7 @@ const Filter = () => {
                         Clear Chat
                     </button>
                     <button  onClick={()=> setAddFriend(true)}>
-                        <Image src={images.clear}
+                        <Image src={images.user}
                         alt='clear'
                         width={20}
                         height={20}/>
