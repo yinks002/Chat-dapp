@@ -40,14 +40,14 @@ const ChatAppProvider = ({children}) =>{
             const allAppUser = await contract.getAllAppUser();
             setAllUser(allAppUser)
             console.log("allusers", allUser)
-            //get user name
-            // const userName = contract.getUsername(connectAccount);
-            // console.log("username",userName)
-            // setUserName(userName);
+            // get user name
+            const userName = contract.getUsername(connectAccount);
+            console.log("username",userName)
+            setUserName(userName);
             //get friend list
             const friendLists = await contract.getMyFriendList();
-            console.log(friendLists)
-            setFriendLists("friend list",friendLists);
+            console.log("friend lists",friendLists)
+            setFriendLists(friendLists);
 
 
             //get all app usr list
@@ -94,7 +94,7 @@ const ChatAppProvider = ({children}) =>{
     //add friend
     const addFriends  = async({name, accountAddress})=>{
         try {
-            if(name || accountAddress) return setError("please provide name and address");
+            // if(name || accountAddress) return setError("please provide name and address");
             const contract= await connectingWithContract();
             const addMyfriend= await contract.addFriend(accountAddress, name);
             setLoading(true);
@@ -109,7 +109,7 @@ const ChatAppProvider = ({children}) =>{
 //send message to your friends
     const sendMessage = async({msg,address})=>{
         try {
-            if(msg || address) return setError("please type your message");
+            // if(msg || address) return setError("please type your message");
             const contract = await connectingWithContract();
             const addMessage = await contract.sendMessage(address, msg);
             setLoading(true);
@@ -117,6 +117,7 @@ const ChatAppProvider = ({children}) =>{
             setLoading(false);
             window.location.reload();
         } catch (error) {
+            console.log(error);
             setError("reload and try again")
         }
     }

@@ -31,20 +31,35 @@ const Chat = ({functionName,readMessage,
     )    
     const router = useRouter()
 
-    useEffect(()=>{
-        if(!router.isReady) return setChatData(router.query);
-        readMessage(router.query.address)
-        readUser(router.query.address)
-    }, [router.isReady])
+    useEffect(() => {
+        if (!router) return; // ✅ Check if router exists
+        console.log("Router Object:", router);
 
+        // You can access the current path like this
+        console.log("Current Path:", router.pathname);
+
+        // Extract query params manually (since `router.query` is not available)
+        const urlParams = new URLSearchParams(window.location.search);
+        const address = urlParams.get("address");
+        const name = urlParams.get("name");
+
+        if (!address) return; // ✅ Instead of `router.isReady`
+
+        setChatData({ name, address });
+        readMessage(address);
+        readUser(address);
+
+        console.log("Chat Address:", address);
+    }, [router]);
     // useEffect(()=>{
     //     if(chatData.address){
     //         readMessage(router.query.address)
     //         readUser(router.query.address)
     //     }
     // })
-
+  
     return (
+     
         <div className={Style.Chat}>
             {currentUserName && currentUserAddress ? (
         <div className={Style.Chat_user_info}>
@@ -53,6 +68,7 @@ const Chat = ({functionName,readMessage,
             width={70}
             height={70}            
             />
+              
             <div className={Style.Chat_user_info_box}>
                 <h4>{currentUserName}</h4>
                 <p className={Style.show}> {currentUserAddress} </p>

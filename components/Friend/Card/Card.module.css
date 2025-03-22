@@ -1,7 +1,7 @@
 .Card_box{
     display: flex;
     align-items: center;
-    line-height: 0;
+    line-height: 1.6;
     gap: 1rem;
     padding: 1rem 0;
     border-bottom: 1px solid #f1820342;

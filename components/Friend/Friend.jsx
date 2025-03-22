@@ -40,7 +40,7 @@ const Friend = () => {
 
             <div className={Style.Friend_box_right}>
                 <Chat 
-                fucntionName = {sendMessage}
+                functionName = {sendMessage}
                 readMessage = {readMessage}
                 readUser={readUser}
                 friendMsg = {friendMsg}
