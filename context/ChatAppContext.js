@@ -41,9 +41,8 @@ const ChatAppProvider = ({children}) =>{
             setAllUser(allAppUser)
             console.log("allusers", allUser)
             // get user name
-            const userName = contract.getUsername(connectAccount);
-            console.log("username",userName)
-            setUserName(userName);
+          // Check if the user is registered
+      
             //get friend list
             const friendLists = await contract.getMyFriendList();
             console.log("friend lists",friendLists)
@@ -57,6 +56,20 @@ const ChatAppProvider = ({children}) =>{
         }catch(error){
             console.log(error)
             console.log("please insralll and connect your wallet")
+        }
+        const isRegistered = allAppUser.some(user => user.accountAddress.toLowerCase() === connectAccount.toLowerCase());
+
+        
+        console.log("is the user registered?",isRegistered)
+
+        if (isRegistered) {
+            // Get username only if registered
+            const userName = await contract.getUsername(connectAccount);
+            console.log("username", userName);
+            setUserName(userName);
+        } else {
+            console.log("User is not registered");
+            setUserName("Unregistered User");
         }
     }
     const testError = ()=>{
