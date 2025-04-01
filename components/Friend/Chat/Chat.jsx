@@ -51,12 +51,19 @@ const Chat = ({functionName,readMessage,
 
         console.log("Chat Address:", address);
     }, [router]);
-    // useEffect(()=>{
-    //     if(chatData.address){
-    //         readMessage(router.query.address)
-    //         readUser(router.query.address)
-    //     }
-    // })
+   useEffect(() => {
+    if (!chatData.address) return;
+
+    const searchParams = new URLSearchParams(window.location.search);
+    console.log("THESEACH", searchParams)
+    const address = searchParams.get("address");
+
+    if (address) {
+        readMessage(address);
+        readUser(address);
+    }
+}, [chatData.address]);
+
   
     return (
      
