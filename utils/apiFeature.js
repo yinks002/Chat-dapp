@@ -54,14 +54,27 @@ export const connectingWithContract = async()=>{
     }
 }
 
-export const converTime = (time)=>{
-    const newTime=new Date(time.toNumber());
 
-    const realTime = newTime.getHours() + "/" +
-     newTime.getMinutes() + "/" +
-     newTime.getSeconds() + " Date:" + 
-     newTime.getDate() + "/" +
-     (newTime.getMonth() + 1) + "/" + newTime.getFullYear();
+export const converTime = (time) => {
+    // Ensure `time` is converted properly
+    const timestamp = typeof time === "bigint" ? Number(time) : Number(time);
+    
+    if (isNaN(timestamp)) return "Invalid date"; // Handle errors
 
-     return realTime;
-}
+    const newTime = new Date(timestamp * 1000); // Convert to milliseconds if it's a Unix timestamp
+
+    return `${newTime.getHours()}:${newTime.getMinutes()}:${newTime.getSeconds()} Date: ${newTime.getDate()}/${newTime.getMonth() + 1}/${newTime.getFullYear()}`;
+};
+
+
+// export const converTime = (time)=>{
+//     const newTime=new Date(time.toNumber());
+
+//     const realTime = newTime.getHours() + "/" +
+//      newTime.getMinutes() + "/" +
+//      newTime.getSeconds() + " Date:" + 
+//      newTime.getDate() + "/" +
+//      (newTime.getMonth() + 1) + "/" + newTime.getFullYear();
+
+//      return realTime;
+// }
