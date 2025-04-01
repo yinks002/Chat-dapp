@@ -84,7 +84,7 @@ const Chat = ({functionName,readMessage,
                 <div className={Style.Chat_box}>
                     <div className={Style.Chat_box_left}>
                         {
-                            friendMsg.map(()=>(
+                            friendMsg.map((el, i)=>(
                                 <div>
                                     {el.sender == chatData.address? (
                                         <div className={Style.Chat_box_left_title}>

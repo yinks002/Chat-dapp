@@ -48,29 +48,49 @@ const ChatAppProvider = ({children}) =>{
             console.log("friend lists",friendLists)
             setFriendLists(friendLists);
 
+         // Declare isRegistered before using it
+         let isRegistered = false;
 
-            //get all app usr list
-            const userList = await contract.getAllAppUser();
-            console.log("The user fucking lists",userList)
-            setUserLists(userList);
-        }catch(error){
-            console.log(error)
-            console.log("please insralll and connect your wallet")
-        }
-        const isRegistered = allAppUser.some(user => user.accountAddress.toLowerCase() === connectAccount.toLowerCase());
+         if (allAppUser.length > 0) {
+             isRegistered = allAppUser.some(user => user.accountAddress.toLowerCase() === connectAccount.toLowerCase());
+         }
+ 
+         console.log("Is user registered?", isRegistered);
 
         
-        console.log("is the user registered?",isRegistered)
-
-        if (isRegistered) {
+           
+         if (isRegistered) {
             // Get username only if registered
             const userName = await contract.getUsername(connectAccount);
             console.log("username", userName);
             setUserName(userName);
+
+            // Get the user's friend list
+            const friendLists = await contract.getMyFriendList();
+            console.log("friend lists", friendLists);
+            setFriendLists(friendLists);
         } else {
             console.log("User is not registered");
-            setUserName("Unregistered User");
+            setUserName("Guest User");  // Default name for unregistered users
         }
+
+        const userList = await contract.getAllAppUser();
+        console.log("User lists", userList);
+        setUserLists(userList);
+        }catch(error){
+            console.log(error)
+            console.log("please insralll and connect your wallet")
+        }
+
+        // if (isRegistered) {
+        //     // Get username only if registered
+        //     const userName = await contract.getUsername(connectAccount);
+        //     console.log("username", userName);
+        //     setUserName(userName);
+        // } else {
+        //     console.log("User is not registered");
+        //     setUserName("Unregistered User");
+        // }
     }
     const testError = ()=>{
         setError("This is me testing the error component");
